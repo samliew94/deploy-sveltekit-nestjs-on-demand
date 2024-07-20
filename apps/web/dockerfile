@@ -1,0 +1,16 @@
+FROM node:20-alpine AS base
+RUN npm i -g pnpm
+
+from base as builder
+workdir /app
+copy . .
+run pnpm i
+run pnpm build
+
+from base as final
+workdir /app
+copy --from=builder /app/build ./build
+copy package.json pnpm-lock.yaml .
+run pnpm i --prod
+expose 3000
+cmd node build

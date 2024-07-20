@@ -1,14 +1,26 @@
-# Containerized SvelteKit + NestJS Websocket apps
+# Containerized SvelteKit (web) + NestJS (nest) websocket apps
 
 ![1](/screenshots/1.png)
 
-## About
-
-Login, roll a number, and all other connected players will see the rolled value.
-
 ## Goals & Project Roadmap
 
-1. Create the Svelte
+1. Create the web app [X]
+2. Create the nest app [X]
+3. Make web talk to nest in real-time via Socket-IO [X]
+4. Run containerized web [X]
+5. Run containerized nest [X]
+6. Create Docker Compose to deploy both contains web & nest [X]
+7. Select a Cloud Provider []
+8. Launch a Linux VM instance []
+9. Create serverless function to start & stop the instance []
+10. Create public API endpoints to invoke (9)
+11. Guard & Authenticate those endpoints
+12. Enable VM to pull source code from this repo
+13. TBD...
+
+## So what does it do?
+
+Login, roll a number, and all other connected players will see the sum of self-rolled value.
 
 ## Installation (local)
 

@@ -15,11 +15,18 @@ jobs:
                   PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
                   HOST: ${{ secrets.EC2_HOST}}
                   USER: ${{ secrets.EC2_USER}}
+                  ORIGIN: ${{ secrets.ORIGIN }}
+                  JWT_SECRET: ${{ secrets.JWT_SECRET }}
               run: |
                   echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
                   ssh -o StrictHostKeyChecking=no -i private_key ${USER}@${HOST} 'mkdir -p ~/apps/web'
-                  scp -o StrictHostKeyChecking=no -i private_key -r ./apps/web ${USER}@${HOST}:~/apps/web
+                  scp -o StrictHostKeyChecking=no -i private_key -r ./apps/web ${USER}@${HOST}:~/apps
                   ssh -o StrictHostKeyChecking=no -i private_key ${USER}@${HOST} '
-                    cd ~/app/web
-                    ls
+                    cd ~/apps
+                    rm -rf web
+                    cd web
+                    docker stop web
+                    docker rm web
+                    docker build -t web .
+                    docker run -d -p 8080:3000 --name web -e ORIGIN=${ORIGIN} -e JWT_SECRET=${JWT_SECRET}  web
                   '

@@ -7,11 +7,3 @@ services:
         environment:
             - ORIGIN
             - JWT_SECRET
-            - PUBLIC_IO_URL
-    nest-socket:
-        container_name: nest-socket
-        build: ./apps/nest-socket
-        ports:
-            - ${NEST_PORT}:3000
-        environment:
-            - JWT_SECRET

@@ -1,0 +1,24 @@
+on:
+    push:
+        branches: ["v1.0.0"]
+jobs:
+    build:
+        name: Deploy
+        runs-on: ubuntu-latest
+        steps:
+            - name: Get latest code
+              uses: actions/checkout@v2
+
+            - name: Deploy to EC2
+              env:
+                  PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+                  HOST: ${{ secrets.EC2_HOST}}
+                  USER: ${{ secrets.EC2_USER}}
+              run: |
+                  echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+                  scp -o StrictHostKeyChecking=no -i private_key -r .apps/web $USER@${HOST}:~/apps/web
+                  ssh -o StrictHostKeyChecking=no -i private_key ${USER@${HOST}
+                    cd ~apps/web
+                    docker build -t web .
+                    docker stop $(docker ps -a -q) || true
+                    docker run -d -p 8080:3000 your-image-name

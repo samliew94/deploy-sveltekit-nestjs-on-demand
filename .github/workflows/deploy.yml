@@ -21,4 +21,4 @@ jobs:
                     cd ~apps/web
                     docker build -t web .
                     docker stop $(docker ps -a -q) || true
-                    docker run -d -p 8080:3000 your-image-name
+                    docker run -d -p 8080:3000 web

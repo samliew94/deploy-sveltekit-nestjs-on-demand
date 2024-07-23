@@ -5,6 +5,7 @@ jobs:
     build:
         name: Deploy
         runs-on: ubuntu-latest
+        environment: foo
         steps:
             - name: Get latest code
               uses: actions/checkout@v2

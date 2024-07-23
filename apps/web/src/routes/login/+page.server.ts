@@ -26,7 +26,12 @@ export const actions = {
         const { username } = form.data;
 
         const token = login(username);
-        cookies.set("token", token, { path: "/", maxAge: 31536000 });
+        cookies.set("token", token, {
+            path: "/",
+            maxAge: 31536000,
+            secure: false,
+            sameSite: "lax",
+        });
 
         // Display a success status message
         return message(form, { success: true });

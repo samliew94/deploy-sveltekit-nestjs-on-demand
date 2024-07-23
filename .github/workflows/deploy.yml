@@ -16,4 +16,8 @@ jobs:
                   USER: ${{ secrets.EC2_USER}}
               run: |
                   echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-                  ssh -o StrictHostKeyChecking=no -i private_key ${USER}@${HOST}
+                  scp -o StrictHostKeyChecking=no -i private_key -r ./apps/web ${USER}@${HOST}:~/apps/web
+                  ssh -o StrictHostKeyChecking=no -i private_key ${USER}@${HOST} '
+                    cd ~/app/web
+                    ls
+                  '

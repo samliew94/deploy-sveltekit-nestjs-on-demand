@@ -6,7 +6,6 @@
     async function handleLogout() {
         fetch("/api/user/logout", {
             method: "post",
-            credentials: "include",
         })
             .then((res) => {
                 if (res.ok) {

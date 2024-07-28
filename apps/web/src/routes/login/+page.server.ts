@@ -29,8 +29,7 @@ export const actions = {
         cookies.set("token", token, {
             path: "/",
             maxAge: 31536000,
-            secure: false,
-            sameSite: "lax",
+            secure: true,
         });
 
         // Display a success status message
